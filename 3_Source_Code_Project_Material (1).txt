@@ -1,0 +1,109 @@
+STORE DATA ANALYSIS PROJECT
+SECTION 3 – SOURCE CODE / PROJECT MATERIAL
+
+Project type:
+Microsoft Excel data analysis and dashboard.
+
+Important:
+This project workbook is Excel-based. No separate Python/VBA programming source code is required unless you personally used it.
+For submission, the workbook itself is the primary source material. If the submission portal requires a file in the Source Code section,
+use this document as the supporting project-material file.
+
+KEY EXCEL CALCULATIONS / LOGIC USED
+
+1. Total Sales
+=SUM(Orders[Sales])
+
+2. Total Quantity
+=SUM(Orders[Quantity])
+
+3. Total Discount
+=SUM(Orders[Discount])
+
+4. Total Profit
+=SUM(Orders[Profit])
+
+5. Profit Margin
+=SUM(Orders[Profit])/SUM(Orders[Sales])
+
+6. Average Discount
+=AVERAGE(Orders[Discount])
+
+7. Sales by Region
+Use a PivotTable:
+Rows = Region
+Values = Sum of Sales
+
+8. Profit by Region
+Use a PivotTable:
+Rows = Region
+Values = Sum of Profit
+
+9. Sales and Profit by Category
+Use a PivotTable:
+Rows = Category
+Values = Sum of Sales, Sum of Profit
+
+10. Sales and Profit by Sub-Category
+Use a PivotTable:
+Rows = Sub-Category
+Values = Sum of Sales, Sum of Profit
+
+11. Monthly Trend
+Use a PivotTable:
+Rows = Order Date grouped by Year and Month
+Values = Sum of Sales, Sum of Profit, Count/Sum of Quantity
+
+12. Customer Performance
+Use a PivotTable:
+Rows = Customer Name
+Values = Sum of Sales, Sum of Profit
+Sort descending to identify top customers.
+
+13. Return Analysis
+Filter Returned = Yes and summarize Sales by returned orders.
+The prepared workbook reports sales value associated with returns of approximately $59,459.47.
+
+14. Discount vs Profit
+Group/compare Discount levels against Sum of Sales and Sum of Profit.
+The prepared workbook identifies negative total profit at 30%, 32%, 40%, 45%, 50%, 60%, 70%, and 80% discount levels.
+
+OPTIONAL SQL EQUIVALENTS
+These are equivalent examples for reproducing the analysis in SQL if required; they are not claimed to be code used to create the Excel workbook.
+
+SELECT SUM(Sales) AS total_sales,
+       SUM(Quantity) AS total_quantity,
+       SUM(Discount) AS total_discount,
+       SUM(Profit) AS total_profit
+FROM sales_data;
+
+SELECT Region,
+       SUM(Sales) AS total_sales,
+       SUM(Profit) AS total_profit
+FROM sales_data
+GROUP BY Region
+ORDER BY total_sales DESC;
+
+SELECT Category,
+       SUM(Sales) AS total_sales,
+       SUM(Profit) AS total_profit
+FROM sales_data
+GROUP BY Category;
+
+SELECT `Sub-Category`,
+       SUM(Sales) AS total_sales,
+       SUM(Profit) AS total_profit
+FROM sales_data
+GROUP BY `Sub-Category`
+ORDER BY total_profit ASC;
+
+SELECT Customer_Name,
+       SUM(Sales) AS total_sales,
+       SUM(Profit) AS total_profit
+FROM sales_data
+GROUP BY Customer_Name
+ORDER BY total_sales DESC
+LIMIT 10;
+
+SELECT COUNT(DISTINCT Category) AS category_count
+FROM sales_data;
